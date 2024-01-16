@@ -14,6 +14,12 @@ if (options.level === 'debug') {
   };
 }
 
+//To print all the process' environment variables so we can easily debug what has/hasn't been set
+// console.log("Environment variables: ");
+// for (const [key, value] of Object.entries(process.env)) {
+//   console.log(`${key}: ${value}`);
+// }
+
 // Create and export a Pino Logger instance:
 // https://getpino.io/#/docs/api?id=logger
 module.exports = require('pino')(options);
