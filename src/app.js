@@ -1,4 +1,4 @@
-// modifications to src/app.js
+// src/app.js
 
 const express = require('express');
 const cors = require('cors');
@@ -25,6 +25,8 @@ app.use(cors());
 
 // Use gzip/deflate compression middleware
 app.use(compression());
+
+// modifications to src/app.js
 
 // Remove `app.get('/', (req, res) => {...});` and replace with:
 
