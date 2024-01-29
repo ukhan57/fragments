@@ -23,3 +23,6 @@ process.on('unhandledRejection', (reason, promise) => {
 
 // Start our server
 require('./server');
+
+// Adding a line to the end of file to intentially cause an ESLit error:
+const unneededVariable = 'This variable is never used';
