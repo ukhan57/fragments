@@ -29,7 +29,7 @@ describe('Fragment Databse Tests', () => {
   })
 
   // writeFragmentData
-  test('write fragment data', async () => {
+  test('write fragment data with buffers', async () => {
     const fragment = {
       ownerId: 'a',
       id: 'b',
@@ -41,7 +41,7 @@ describe('Fragment Databse Tests', () => {
   })
 
   // readFragmentData
-  test('write fragment data', async () => {
+  test('write fragment data with buffers', async () => {
     const fragment = {
       ownerId: 'a',
       id: 'b',
