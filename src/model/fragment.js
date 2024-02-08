@@ -70,6 +70,7 @@ class Fragment {
   static async byId(ownerId, id) {
     const metadata = await readFragment(ownerId, id);
     const data = await readFragmentData(ownerId, id);
+    logger.info('Retrieved fragemnt for the user by the given id');
     return new Fragment({...metadata, data});
   }
 
@@ -80,6 +81,7 @@ class Fragment {
    * @returns Promise<void>
    */
   static async delete(ownerId, id) {
+    logger.warn('Deleted fragment data and metadata');
     await deleteFragment(ownerId, id);
   }
 
@@ -96,7 +98,7 @@ class Fragment {
       if(!userfragments || !userfragments.includes(this.id)){
         userfragments.push(this.id);
       }
-      
+
       logger.info('Fragment saved successfully');
     } catch (error) {
       logger.error('Error saving fragment');
@@ -109,6 +111,7 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
+    logger.info('Retrieved fragments data from database');
     return readFragmentData(this.ownerId, this.id);
   }
 
