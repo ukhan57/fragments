@@ -18,6 +18,11 @@ const {
   deleteFragment,
 } = require('./data');
 
+const supportedTypes = [
+  'text/plain',
+  'text/plain; charset=utf-8',
+];
+
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
     if (!ownerId || !type) {
@@ -32,8 +37,12 @@ class Fragment {
       throw new Error('Size cannot be negative');
     }
 
-    if (!Fragment.isSupportedType(type)) {
-      throw new Error('Invalid fragment type');
+    if (!type.length) {
+      throw new Error('Type cannot be empty');
+    } else {
+      if (!Fragment.isSupportedType(type)) {
+        throw new Error('Invalid fragment type');
+      }
     }
 
     this.id = id || randomUUID();
@@ -51,14 +60,15 @@ class Fragment {
    * @returns Promise<Array<Fragment>>
    */
   static async byUser(ownerId, expand = false) {
-    const userfragments = await listFragments(ownerId);
-    if (!userfragments || userfragments.length === 0) {
+    try {
+      const fragments = await listFragments(ownerId, expand);
+      if (expand) {
+        return fragments.map((fragment) => new Fragment(fragment));
+      }
+      return fragments;
+    } catch (error) {
       return [];
     }
-    if (expand) {
-      return Promise.all(userfragments.map(async (fragmentId) => Fragment.byId(ownerId, fragmentId)));
-    }
-    return userfragments;
   }
 
   /**
@@ -68,10 +78,11 @@ class Fragment {
    * @returns Promise<Fragment>
    */
   static async byId(ownerId, id) {
-    const metadata = await readFragment(ownerId, id);
-    const data = await readFragmentData(ownerId, id);
-    logger.info('Retrieved fragemnt for the user by the given id');
-    return new Fragment({...metadata, data});
+    try {
+      return new Fragment(await readFragment(ownerId, id));
+    } catch (error) {
+      throw new Error('unable to find fragment by the given id');
+    }
   }
 
   /**
@@ -93,12 +104,6 @@ class Fragment {
     this.updated = new Date().toISOString();
     try {
       await writeFragment(this);
-      let userfragments = await listFragments(this.ownerId);
-
-      if(!userfragments || !userfragments.includes(this.id)){
-        userfragments.push(this.id);
-      }
-
       logger.info('Fragment saved successfully');
     } catch (error) {
       logger.error('Error saving fragment');
@@ -111,8 +116,17 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
-    logger.info('Retrieved fragments data from database');
-    return readFragmentData(this.ownerId, this.id);
+    try {
+      return new Promise((resolve, reject) => {
+        readFragmentData(this.ownerId, this.id)
+        .then((data) => resolve(Buffer.from(data)))
+        .catch(() => {
+          reject(new Error());
+        });
+      });
+    } catch (error) {
+      throw new Error('Unable to get the data');
+    }
   }
 
   /**
@@ -126,10 +140,10 @@ class Fragment {
         logger.Error('Something went wrong in setData()')
         throw new Error('Data must be a Buffer');
       }
-      this.size = data.length;
+      this.size = Buffer.byteLength(data);
       this.updated = new Date().toISOString();
-      await writeFragmentData(this.ownerId, this.id, data);
-      logger.info('Data is set successfully');
+      await writeFragment(this);
+      return writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
       logger.error('Error setting the fragment data');
       throw new Error('Error setting the fragment data');
@@ -159,8 +173,12 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    const {type} = contentType.parse(this.type);
-    return [type];
+    let formats = [];
+
+    if (this.type.startsWith('text/plain')) {
+      formats = ['text/plain'];
+    }
+    return formats;
   }
 
   /**
@@ -169,7 +187,13 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-    return value.startsWith('text/plain');
+    let result;
+    if (supportedTypes.includes(value)) {
+      result = true;
+    } else {
+      result = false;
+    }
+    return result;
   }
 }
 
