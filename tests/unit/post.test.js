@@ -13,10 +13,21 @@ describe('POST /v1/fragments', () => {
   test('incorrect credentials are denied', () =>
     request(app).post('/v1/fragments').auth('invalid@email.com', 'incorrect_password').expect(401));
 
-    test('fragment without data does not work', async () => {
-      const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').send();
-      expect(res.statusCode).toBe(500);
-    });
+  test('fragment without data does not work', async () => {
+    const res = await request(app).post('/v1/fragments').auth('user1@email.com', 'password1').send();
+    expect(res.statusCode).toBe(500);
+  });
+
+  test('authenticated users create a plain text fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/plain')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.text.includes('text/plain'));
+  });
 
   test('POST response includes a Location header with a full URL to GET the created fragment', async () => {
     const res = await request(app)
