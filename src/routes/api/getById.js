@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     res.status(200).json(createSuccessResponse(fragment));
   } catch (err) {
-    logger.warn(err, "Error retrieving fragment(s)");
+    logger.warn("Error retrieving fragment(s)", err);
     res.status(404).json(createErrorResponse(404, 'Fragment not found'));
   }
 };
