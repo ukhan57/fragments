@@ -79,9 +79,13 @@ class Fragment {
    */
   static async byId(ownerId, id) {
     try {
-      return new Fragment(await readFragment(ownerId, id));
+      const result = await readFragment(ownerId, id);
+      if (!result) {
+        throw new Error('Fragment with id not found');
+      }
+      return result;
     } catch (error) {
-      throw new Error('unable to find fragment by the given id');
+      throw new Error(error);
     }
   }
 
@@ -116,17 +120,18 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
-    try {
-      return new Promise((resolve, reject) => {
-        readFragmentData(this.ownerId, this.id)
-        .then((data) => resolve(Buffer.from(data)))
-        .catch(() => {
-          reject(new Error());
-        });
-      });
-    } catch (error) {
-      throw new Error('Unable to get the data');
-    }
+    // try {
+    //   return new Promise((resolve, reject) => {
+    //     readFragmentData(this.ownerId, this.id)
+    //     .then((data) => resolve(Buffer.from(data)))
+    //     .catch(() => {
+    //       reject(new Error());
+    //     });
+    //   });
+    // } catch (error) {
+    //   throw new Error('Unable to get the data');
+    // }
+    return readFragmentData(this.ownerId, this.id);
   }
 
   /**
@@ -143,7 +148,7 @@ class Fragment {
       this.size = Buffer.byteLength(data);
       this.updated = new Date().toISOString();
       await writeFragment(this);
-      return writeFragmentData(this.ownerId, this.id, data);
+      return await writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
       logger.error('Error setting the fragment data');
       throw new Error('Error setting the fragment data');
