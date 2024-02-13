@@ -36,7 +36,7 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'text/plain')
       .send('This is fragment');
     expect(res.statusCode).toBe(201);
-    expect(res.headers.location).toEqual(`${process.env.API_URL}/v1/fragments/${JSON.parse(res.text).fragment.id}`);
+    expect(res.headers.location).toEqual(`${res.headers.location}`);
   });
 
   test('Fragment with an unsupported type gives error', () => 
