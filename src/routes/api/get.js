@@ -20,11 +20,6 @@ module.exports = async (req, res) => {
   // };
 
   try {
-    // let frags = [];
-    // frags = await Fragment.byUser(req.user, true);
-    // res.status(200).json(createSuccessResponse({ frags }));
-    // const data = { fragments: await Fragment.byUser(req.user, false) };
-
     const data = { fragments: await Fragment.byUser(req.user, req.query.expand) };
     const successResponse = createSuccessResponse(data);
     res.status(200).json(successResponse);
