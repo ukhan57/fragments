@@ -145,8 +145,8 @@ class Fragment {
         logger.Error('Something went wrong in setData()')
         throw new Error('Data must be a Buffer');
       }
-      this.size = Buffer.byteLength(data);
       this.updated = new Date().toISOString();
+      this.size = Buffer.byteLength(data);
       await writeFragment(this);
       return await writeFragmentData(this.ownerId, this.id, data);
     } catch (error) {
