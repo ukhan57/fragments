@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
     await fragment.setData(req.body);
     
     res.setHeader('Content-Type', fragment.type);
-    res.set('Location', `http://${req.headers.host}/v1/fragments/${fragment.id}`);
+    res.set('Location', `http://${process.env.API_URL}/v1/fragments/${fragment.id}`);
 
     res.status(201).json(createSuccessResponse({fragment: fragment}));
 
