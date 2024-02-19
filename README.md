@@ -14,6 +14,9 @@ To authenticate into the EC2 instance server using putty
 loagin as:- ec2-user
 
 To run the server as dev - npm run dev
+
 To test the unit test files - npm test
+
 To run a test for debugging - npm run test:watch (filename)
+
 To run debug - npm run debug
