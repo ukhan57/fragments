@@ -9,7 +9,8 @@ Set a break point in the Health Chck route (src/app.js) (i.e., on the line res.s
 
 Some interesting things learned were regarding the setup for [Lint](https://github.com/humphd/cloud-computing-for-programmers-winter-2024/blob/main/labs/lab-01/README.md#eslint-setup) and [Prettier](https://github.com/humphd/cloud-computing-for-programmers-winter-2024/blob/main/labs/lab-01/README.md#prettier-setup). This is something that I was not able to configure before in my projects. Also learning about the [App Setup](https://github.com/humphd/cloud-computing-for-programmers-winter-2024/blob/main/labs/lab-01/README.md#express-app-setup) was interesting as well because of using structured logging which is a new conept for me.
 
-// More updates coming to this doc
+<!-- More updates coming to this doc -->
+
 To authenticate into the EC2 instance server using putty
 
 loagin as:- ec2-user
