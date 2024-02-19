@@ -98,6 +98,6 @@ CMD npm start
 # For example, a web server might EXPOSE 80, indicating that port 80 is the typical port used by this container.
 
 # We run our service on port 8080
-EXPOSE 8080
+EXPOSE 5555
 
 # After every update to this file, we will have to re-build our image in docker
