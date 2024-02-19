@@ -11,6 +11,7 @@ Some interesting things learned were regarding the setup for [Lint](https://gith
 
 // More updates coming to this doc
 To authenticate into the EC2 instance server using putty
+
 loagin as:- ec2-user
 
 To run the server as dev - npm run dev
