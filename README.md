@@ -21,3 +21,10 @@ To test the unit test files - npm test
 To run a test for debugging - npm run test:watch (filename)
 
 To run debug - npm run debug
+
+Important [Docker notes](https://github.com/humphd/cloud-computing-for-programmers-winter-2024/blob/main/weeks/week-05/discussion.md)
+
+To build an image in docker - docker build -t 'image-name':'version'
+eg., docker build -t fragments:latest
+
+To run a docker image - [docker run](https://docs.docker.com/engine/reference/commandline/container_run/) --rm --name 'container-name' 'image-name':'version'
