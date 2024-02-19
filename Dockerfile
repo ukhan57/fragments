@@ -79,6 +79,15 @@ RUN npm install
 # Copy src to /app/src/
 COPY ./src ./src
 
+# To include our HTPASSWD file were referencing in our environment variables in our test/.htpasswd
+# to run our container using basic-auth method instead of using cognito
+
+# Copy src/
+COPY ./src ./src
+
+# Copy our HTPASSWD file
+COPY ./tests/.htpasswd ./tests/.htpasswd
+
 # Our final step is to define the command to run in order to start our container.
 # A Docker container is really a single process, and we need to tell Docker how to start this process. In our case, we can do that with the command npm start.
 
@@ -90,3 +99,5 @@ CMD npm start
 
 # We run our service on port 8080
 EXPOSE 8080
+
+# After every update to this file, we will have to re-build our image in docker
