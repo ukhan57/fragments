@@ -19,7 +19,7 @@ To transfer files to ec2 instance:
 
 To pack the fragments server - npm pack
 
-To send to ec2 instance - pscp -i "ec2InstanceKey" "packed-file" ec2-user@<ec2-instance-Public-IPv4-DNS>:
+To send to ec2 instance - pscp -i "ec2InstanceKey" "packed-file" ec2-user@'ec2-instance-Public-IPv4-DNS':
 
 to unpack the files after transfering to ec2-instance - tar -xvzf "packed-file"
 
