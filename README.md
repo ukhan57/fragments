@@ -14,6 +14,14 @@ To authenticate into the EC2 instance server using putty
 
 loagin as:- ec2-user
 
+To transfer files to ec2 instance:
+
+To pack the fragments server - npm pack
+
+To send to ec2 instance - pscp -i "ec2InstanceKey" "packed-file" ec2-user@<ec2-instance-Public-IPv4-DNS>:
+
+to unpack the files after transfering to ec2-instance - tar -xvzf "packed-file"
+
 To run the server as dev - npm run dev
 
 To test the unit test files - npm test
