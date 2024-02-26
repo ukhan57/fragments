@@ -7,20 +7,9 @@ const { createSuccessResponse, createErrorResponse } = require ('../../response'
  * Get a list of fragments for the current user
  */
 module.exports = async (req, res) => {
-  // TODO: this is just a placeholder. To get something working, return an empty array...
-  // res.status(200).json({
-  //   status: 'ok',
-  //   // TODO: change me
-  //   fragments: [],
-  // });
-
-  // Modifications to the code
-  // const resData =  {
-  //   fragments: Fragment,
-  // };
-
   try {
-    const data = { fragments: await Fragment.byUser(req.user, req.query.expand) };
+    const expand = req.query.expand === '1';
+    const data = { fragments: await Fragment.byUser(req.user, expand) };
     const successResponse = createSuccessResponse(data);
     res.status(200).json(successResponse);
   } catch (error) {
