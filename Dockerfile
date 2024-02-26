@@ -27,7 +27,7 @@ WORKDIR /app
 # files.  All of the files will be copied into the working dir `./app`
 COPY package.json package-lock.json ./
 
-# Install node dependencies defined in package-lock.json
+# Install node dependencies defined in package-lock.json only based on production
 RUN npm ci --only=production
 
 
@@ -44,7 +44,7 @@ COPY --chown=node:node ./src /app/src
 # Copy our HTPASSWD file
 COPY --chown=node:node ./tests/.htpasswd /app/tests/.htpasswd
 
-# Changing the privelage to least
+# Changing the user privelage to least
 USER node
 
 # Start the container by running our server
