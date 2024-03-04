@@ -11,3 +11,4 @@ tests/
 .prettier*
 jest*
 *.ppk
+secrets

@@ -137,3 +137,6 @@ coverage
 
 # Dont include the key-pair for ec2 instance, which might have sensitive information
 ec2KeyPair.ppk
+
+# Dont include the secrets file
+secrets
