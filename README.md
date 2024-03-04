@@ -39,3 +39,18 @@ eg., docker build -t fragments:latest
 To run a docker image - [docker run](https://docs.docker.com/engine/reference/commandline/container_run/) --rm --name 'container-name' 'image-name':'version'
 
 -> docker run --rm --name fragments --env-file .env -p 8080:8080 fragments:latest
+
+FOR AWS
+
+The following commands must be run on your EC2 instance:
+
+# Define Environment Variables for all AWS Credentials. Use the Learner Lab AWS CLI Credentials:
+
+$ export AWS_ACCESS_KEY_ID=<learner-lab-access-key-id>
+$ export AWS_SECRET_ACCESS_KEY=<learner-lab-secret-access-key>
+$ export AWS_SESSION_TOKEN=<learner-lab-session_token>
+$ export AWS_DEFAULT_REGION=us-east-1
+
+# Login the EC2's docker client, swapping your full ECR registry name
+
+$ docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 4xxxxxxxxxx5.dkr.ecr.us-east-1.amazonaws.com
