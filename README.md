@@ -37,3 +37,5 @@ To build an image in docker - docker build -t 'image-name':'version'
 eg., docker build -t fragments:latest
 
 To run a docker image - [docker run](https://docs.docker.com/engine/reference/commandline/container_run/) --rm --name 'container-name' 'image-name':'version'
+
+-> docker run --rm --name fragments --env-file .env -p 8080:8080 fragments:latest
