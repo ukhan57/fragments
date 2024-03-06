@@ -201,6 +201,7 @@ class Fragment {
       'text/plain; charset=utf-8',
       'text/markdown',
       'text/html',
+      'text/csv',
       'application/json',
     ];
     return validType.includes(value);
