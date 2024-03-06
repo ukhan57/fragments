@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
   try {
     // check if fragment exists
     const fragment = await Fragment.byId(req.user, id);
-    res.setHeader('Content-Type', 'text/plain');
+    res.setHeader('Content-Type', fragment.type);
     res.status(200).json(createSuccessResponse(fragment));
   } catch (err) {
     logger.warn("Error retrieving fragment(s)", err);
