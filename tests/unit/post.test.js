@@ -18,6 +18,7 @@ describe('POST /v1/fragments', () => {
     expect(res.statusCode).toBe(500);
   });
 
+  // test for text/plain
   test('authenticated users create a plain text fragment', async () => {
     const data = Buffer.from('This is fragment');
     const res = await request(app)
@@ -27,6 +28,66 @@ describe('POST /v1/fragments', () => {
       .send(data);
     expect(res.statusCode).toBe(201);
     expect(res.text.includes('text/plain'));
+  });
+
+  // Test for text/plain; charset=utf-8
+  test('authenticated users create a plain text charset=utf-8 fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/plain; charset=utf-8')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.text.includes('text/plain; charset=utf-8'));
+  });
+  
+  // Test for text/markdown
+  test('authenticated users create a markdown text fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/markdown')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.text.includes('text/markdown'));
+  });
+
+  // Test for text/html
+  test('authenticated users create a html text fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/html')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.text.includes('text/html'));
+  });
+
+  // Test for text/csv
+  test('authenticated users create a csv text fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'text/csv')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.text.includes('text/csv'));
+  });
+
+  // Test for application/json
+  test('authenticated users create a application/json fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'application/json')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.text.includes('application/json'));
   });
 
   test('POST response includes a Location header with a full URL to GET the created fragment', async () => {
