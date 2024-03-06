@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
 
     // const type = req.get('Content-Type');
     
-    // To support text/plain type of fragments only
+    // To support text/* and application/json type of fragments only
     if (!Fragment.isSupportedType(req.get('Content-Type'))) {
       return res.status(415).json(createErrorResponse(415, 'Unsupported Content-Type'));
     }
@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
     await fragment.setData(req.body);
     
     res.setHeader('Content-Type', fragment.type);
-    res.set('Location', `http://${process.env.API_URL}/v1/fragments/${fragment.id}`);
+    res.setHeader('Location', `http://${process.env.API_URL}/v1/fragments/${fragment.id}`);
 
     res.status(201).json(createSuccessResponse({fragment: fragment}));
 

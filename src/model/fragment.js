@@ -18,10 +18,14 @@ const {
   deleteFragment,
 } = require('./data');
 
-const supportedTypes = [
-  'text/plain',
-  'text/plain; charset=utf-8',
-];
+// const supportedTypes = [
+//   'text/plain',
+//   'text/plain; charset=utf-8',
+//   'text/markdown',
+//   'text/html',
+//   'text/csv',
+//   'application/json'
+// ];
 
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
@@ -192,13 +196,14 @@ class Fragment {
    * @returns {boolean} true if we support this Content-Type (i.e., type/subtype)
    */
   static isSupportedType(value) {
-    let result;
-    if (supportedTypes.includes(value)) {
-      result = true;
-    } else {
-      result = false;
-    }
-    return result;
+    let validType = [
+      'text/plain',
+      'text/plain; charset=utf-8',
+      'text/markdown',
+      'text/html',
+      'application/json',
+    ];
+    return validType.includes(value);
   }
 }
 
