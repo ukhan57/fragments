@@ -2,7 +2,6 @@
 
 const request = require('supertest');
 const app = require('../../src/app');
-const logger = require('../../src/logger');
 
 describe('GET /v1/fragments/:id', () => {
   // If the request is missing the Authorization header, it should be forbidden
@@ -18,7 +17,7 @@ describe('GET /v1/fragments/:id', () => {
 
     expect(res.statusCode).toBe(404);
     expect(res.body.status).toBe('error');
-    expect(res.body.error.message).toBe('Fragment not found');
+    expect(res.body.error.message).toBe('Fragments data not found');
   });
 
   test('authenticated users get a fragment', async () => {
@@ -29,7 +28,6 @@ describe('GET /v1/fragments/:id', () => {
     .send('This is a fragment');
 
     expect(postRes.statusCode).toBe(201);
-    logger.debug("Fragment has been posted: ", postRes);
     const id = JSON.parse(postRes.text).fragment.id;
     const getRes = await request(app).get('/v1/fragments/' + id).auth('user1@email.com', 'password1');
     expect(getRes.statusCode).toBe(200);
