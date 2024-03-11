@@ -29,13 +29,9 @@ describe('GET /v1/fragments/:id', () => {
     .send('This is a fragment');
 
     expect(postRes.statusCode).toBe(201);
-
     logger.debug("Fragment has been posted: ", postRes);
-
     const id = JSON.parse(postRes.text).fragment.id;
-
     const getRes = await request(app).get('/v1/fragments/' + id).auth('user1@email.com', 'password1');
-
     expect(getRes.statusCode).toBe(200);
   });
 });
