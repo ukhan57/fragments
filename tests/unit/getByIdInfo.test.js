@@ -21,7 +21,7 @@ describe('GET /v1/fragments/:id', () => {
     expect(res.body.error.message).toBe('Fragment metadata is not found');
   });
 
-  test('authenticated users get a fragment', async () => {
+  test('authenticated users get a fragments metadata', async () => {
     const postRes = await request(app)
     .post('/v1/fragments')
     .auth('user1@email.com', 'password1')
