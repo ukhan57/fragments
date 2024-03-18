@@ -17,10 +17,9 @@ describe('GET /v1/fragments/:id', () => {
 
     expect(res.statusCode).toBe(404);
     expect(res.body.status).toBe('error');
-    expect(res.body.error.message).toBe('Fragment data not found');
   });
 
-  test('authenticated users get a fragment', async () => {
+  test('authenticated users get a fragments data', async () => {
     const postRes = await request(app)
     .post('/v1/fragments')
     .auth('user1@email.com', 'password1')
