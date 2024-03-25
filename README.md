@@ -54,3 +54,5 @@ $ export AWS_DEFAULT_REGION=us-east-1
 # Login the EC2's docker client, swapping your full ECR registry name
 
 $ docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 4xxxxxxxxxx5.dkr.ecr.us-east-1.amazonaws.com
+
+Amazon CloudWatch service to collect our container logs into a Log Group named /ecs/fragments-task
