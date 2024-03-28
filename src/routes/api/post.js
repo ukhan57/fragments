@@ -6,6 +6,14 @@ require('dotenv').config();
 const { createSuccessResponse, createErrorResponse } = require ('../../response');
 const logger = require('../../logger');
 
+// For setting the header, choosing the appropriate header
+let apiUrl;
+if (process.env.API_URL) {
+  apiUrl = process.env.API_URL;
+} else {
+  apiUrl = 'http://localhost:8080';
+}
+
 /*
  * Create a fragment for the current user
 */
@@ -29,7 +37,7 @@ module.exports = async (req, res) => {
     await fragment.setData(req.body);
     
     res.setHeader('Content-Type', fragment.type);
-    res.setHeader('Location', `http://${process.env.API_URL}/v1/fragments/${fragment.id}`);
+    res.setHeader('Location', `${apiUrl}/v1/fragments/${fragment.id}`);
 
     res.status(201).json(createSuccessResponse({fragment: fragment}));
 
