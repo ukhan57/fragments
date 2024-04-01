@@ -39,4 +39,7 @@ router.get('/fragments/:id', require('./getById'));
 // Define our get by id info route, which will be: Post /v1/getByIdInfo
 router.get('/fragments/:id/info', require('./getByIdInfo'));
 
+// Define our delete by id route, which will be: DELTE /v1/fragments/:id
+router.delete('/fragments/:id', require('./deleteById'));
+
 module.exports = router;

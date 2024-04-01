@@ -100,7 +100,7 @@ class Fragment {
    * @returns Promise<void>
    */
   static async delete(ownerId, id) {
-    logger.warn('Deleted fragment data and metadata');
+    logger.info('Deleted fragment data and metadata');
     await deleteFragment(ownerId, id);
   }
 
