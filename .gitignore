@@ -140,3 +140,7 @@ ec2KeyPair.ppk
 
 # Dont include the secrets file
 secrets
+
+# Dont include this docker compose file for local S3 development
+docker-compose.local.yml
+minio/
