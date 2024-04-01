@@ -97,6 +97,7 @@ jobs:
             API_URL=fragments-lb-1729897819.us-east-1.elb.amazonaws.com
             PORT=8080
             AWS_COGNITO_CLIENT_ID=43lnrn9cgf4sd4o71e9p5h34n6
+            AWS_S3_BUCKET_NAME=ukhan57/fragments
 
       # Deploying our updated task definitions to our ECS cluster
       - name: Deploy Amazon ECS task definition
