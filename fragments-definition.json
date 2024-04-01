@@ -44,7 +44,7 @@
         },
         {
           "name": "AWS_S3_BUCKET_NAME",
-          "value": "ukhan57/fragments"
+          "value": "ukhan57-fragments"
         }
       ],
       "environmentFiles": [],
