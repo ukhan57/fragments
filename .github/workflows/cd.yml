@@ -98,6 +98,7 @@ jobs:
             PORT=8080
             AWS_COGNITO_CLIENT_ID=43lnrn9cgf4sd4o71e9p5h34n6
             AWS_S3_BUCKET_NAME=ukhan57-fragments
+            AWS_DYNAMODB_TABLE_NAME=fragments
 
       # Deploying our updated task definitions to our ECS cluster
       - name: Deploy Amazon ECS task definition
