@@ -183,7 +183,7 @@ async function deleteFragment(ownerId, id) {
 
   const ddbParams = {
     TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
-    Key: `${ownerId}/${id}`,
+    Key: {ownerId, id},
   }
 
   // Create a Delete Object command to send to S3
@@ -194,8 +194,9 @@ async function deleteFragment(ownerId, id) {
 
   try {
     // Use our client to send the command
-    await s3Client.send(s3Command);
-    await ddbDocClient.send(ddbCommand);
+    // await s3Client.send(s3Command);
+    // await ddbDocClient.send(ddbCommand);
+    return await Promise.all([ddbDocClient.send(ddbCommand), s3Client.send(s3Command)]);
   } catch (err) {
     // If anything goes wrong, log enough info that we can debug
     const { Bucket, Key } = s3Params;
