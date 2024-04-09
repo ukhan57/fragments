@@ -49,11 +49,11 @@ HTTP/1.1 200
 
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.fragment.id" == {{fragment1_id}}
-jsonpath "$.fragment.type" == "application/json"
-jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
-jsonpath "$.fragment.created" isString
-jsonpath "$.fragment.updated" isString
+jsonpath "$.id" == {{fragment1_id}}
+jsonpath "$.type" == "application/json"
+jsonpath "$.ownerId" matches "^[0-9a-fA-F]+$"
+jsonpath "$.created" isString
+jsonpath "$.updated" isString
 
 # 4. Authenticated POST to /v1/fragments
 POST http://localhost:8080/v1/fragments
@@ -104,11 +104,11 @@ HTTP/1.1 200
 
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.fragment.id" == {{fragment2_id}}
-jsonpath "$.fragment.type" == "text/markdown"
-jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
-jsonpath "$.fragment.created" isString
-jsonpath "$.fragment.updated" isString
+jsonpath "$.id" == {{fragment2_id}}
+jsonpath "$.type" == "text/markdown"
+jsonpath "$.ownerId" matches "^[0-9a-fA-F]+$"
+jsonpath "$.created" isString
+jsonpath "$.updated" isString
 
 # 7. Get list of fragments by Authenticated GET to /v1/fragments
 GET http://localhost:8080/v1/fragments
