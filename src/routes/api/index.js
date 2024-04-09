@@ -33,13 +33,16 @@ const rawBody = () =>
 // You can use Buffer.isBuffer(req.body) to test if it was parsed by the raw body parser.
 router.post('/fragments', rawBody(), require('./post'));
 
-// Define our get by id route, which will be: Post /v1/getById
+// Define our get by id route, which will be: GET /v1/getById
 router.get('/fragments/:id', require('./getById'));
 
-// Define our get by id info route, which will be: Post /v1/getByIdInfo
+// Define our get by id info route, which will be: GET /v1/getByIdInfo
 router.get('/fragments/:id/info', require('./getByIdInfo'));
 
 // Define our delete by id route, which will be: DELTE /v1/fragments/:id
 router.delete('/fragments/:id', require('./deleteById'));
+
+// Define our get id share route, which will be: GET /v1/fragments/:id/share
+router.get('/fragments/:id/share', require('./getIdShare'));
 
 module.exports = router;
