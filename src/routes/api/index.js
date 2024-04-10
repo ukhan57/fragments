@@ -42,7 +42,4 @@ router.get('/fragments/:id/info', require('./getByIdInfo'));
 // Define our delete by id route, which will be: DELTE /v1/fragments/:id
 router.delete('/fragments/:id', require('./deleteById'));
 
-// Define our get id share route, which will be: GET /v1/fragments/:id/share
-router.get('/fragments/:id/share', require('./getIdShare'));
-
 module.exports = router;
