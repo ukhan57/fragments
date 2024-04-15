@@ -18,15 +18,6 @@ const {
   deleteFragment,
 } = require('./data');
 
-// const supportedTypes = [
-//   'text/plain',
-//   'text/plain; charset=utf-8',
-//   'text/markdown',
-//   'text/html',
-//   'text/csv',
-//   'application/json'
-// ];
-
 class Fragment {
   constructor({ id, ownerId, created, updated, type, size = 0 }) {
     if (!ownerId || !type) {
@@ -124,17 +115,6 @@ class Fragment {
    * @returns Promise<Buffer>
    */
   getData() {
-    // try {
-    //   return new Promise((resolve, reject) => {
-    //     readFragmentData(this.ownerId, this.id)
-    //     .then((data) => resolve(Buffer.from(data)))
-    //     .catch(() => {
-    //       reject(new Error());
-    //     });
-    //   });
-    // } catch (error) {
-    //   throw new Error('Unable to get the data');
-    // }
     return readFragmentData(this.ownerId, this.id);
   }
 
