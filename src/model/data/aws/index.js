@@ -161,17 +161,6 @@ async function listFragments(ownerId, expand = false) {
   }
 }
 
-
-// // Delete a fragment's metadata and data from memory db. Returns a Promise
-// function deleteFragment(ownerId, id) {
-//   return Promise.all([
-//     // Delete metadata
-//     metadata.del(ownerId, id),
-//     // Delete data
-//     data.del(ownerId, id),
-//   ]);
-// }
-
 // Deletes a fragment's data to an S3 Object in a Bucket
 async function deleteFragment(ownerId, id) {
   // Create the DELETE API params from our details
