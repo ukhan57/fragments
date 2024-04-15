@@ -183,6 +183,11 @@ class Fragment {
       'text/html',
       'text/csv',
       'application/json',
+      'image/png',
+      'image/jpeg',
+      'image/webp',
+      'image/avif',
+      'image/gif',
     ];
     return validType.includes(value);
   }

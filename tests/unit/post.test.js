@@ -27,7 +27,7 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'text/plain')
       .send(data);
     expect(res.statusCode).toBe(201);
-    expect(res.text.includes('text/plain'));
+    expect(res.headers['content-type']).toContain('text/plain');
   });
 
   // Test for text/plain; charset=utf-8
@@ -39,7 +39,7 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'text/plain; charset=utf-8')
       .send(data);
     expect(res.statusCode).toBe(201);
-    expect(res.text.includes('text/plain; charset=utf-8'));
+    expect(res.headers['content-type']).toContain('text/plain; charset=utf-8');
   });
   
   // Test for text/markdown
@@ -51,7 +51,7 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'text/markdown')
       .send(data);
     expect(res.statusCode).toBe(201);
-    expect(res.text.includes('text/markdown'));
+    expect(res.headers['content-type']).toContain('text/markdown');
   });
 
   // Test for text/html
@@ -63,7 +63,7 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'text/html')
       .send(data);
     expect(res.statusCode).toBe(201);
-    expect(res.text.includes('text/html'));
+    expect(res.headers['content-type']).toContain('text/html');
   });
 
   // Test for text/csv
@@ -75,7 +75,7 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'text/csv')
       .send(data);
     expect(res.statusCode).toBe(201);
-    expect(res.text.includes('text/csv'));
+    expect(res.headers['content-type']).toContain('text/csv');
   });
 
   // Test for application/json
@@ -87,9 +87,70 @@ describe('POST /v1/fragments', () => {
       .set('Content-Type', 'application/json')
       .send(data);
     expect(res.statusCode).toBe(201);
-    expect(res.text.includes('application/json'));
+    expect(res.headers['content-type']).toContain('application/json');
   });
 
+  // Test for image/png
+  test('authenticated users create a image/png fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/png')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.headers['content-type']).toContain('image/png');
+  });
+
+  // Test for image/jpeg
+  test('authenticated users create a image/jpeg fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/jpeg')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.headers['content-type']).toContain('image/jpeg');
+  });
+
+  // Test for image/webp
+  test('authenticated users create a image/webp fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/webp')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.headers['content-type']).toContain('image/webp');
+  });
+
+  // Test for image/avif
+  test('authenticated users create a image/avif fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/avif')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.headers['content-type']).toContain('image/avif');
+  });
+
+  // Test for image/gif
+  test('authenticated users create a image/gif fragment', async () => {
+    const data = Buffer.from('This is fragment');
+    const res = await request(app)
+      .post('/v1/fragments')
+      .auth('user1@email.com', 'password1')
+      .set('Content-Type', 'image/gif')
+      .send(data);
+    expect(res.statusCode).toBe(201);
+    expect(res.headers['content-type']).toContain('image/gif');
+  });
+
+  // Headers include the correct location of the posted fragment
   test('POST response includes a Location header with a full URL to GET the created fragment', async () => {
     const res = await request(app)
       .post('/v1/fragments')
@@ -100,6 +161,7 @@ describe('POST /v1/fragments', () => {
     expect(res.headers.location).toEqual(`${res.headers.location}`);
   });
 
+  // unsupported fragment cannot be posted
   test('Fragment with an unsupported type gives error', () => 
     request(app)
       .post('/v1/fragments')

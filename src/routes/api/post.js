@@ -22,10 +22,8 @@ module.exports = async (req, res) => {
     if (!Buffer.isBuffer(req.body)) {
       return res.status(415).json(createErrorResponse(415, 'Unsupported Content-Type'));
     }
-
-    // const type = req.get('Content-Type');
     
-    // To support text/* and application/json type of fragments only
+    // To support all the text/, application/ and image types only
     if (!Fragment.isSupportedType(req.get('Content-Type'))) {
       return res.status(415).json(createErrorResponse(415, 'Unsupported Content-Type'));
     }
