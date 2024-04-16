@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
 
     logger.info({ fragment: fragment }, `Fragment successfully posted`);
   } catch (error) {
-    logger.error({error}, 'Error creating fragment');
+    logger.error({error}, 'Something went wrong while posting the fragment');
     res.status(500).json(createErrorResponse(500, `${error}`));
   }
 };
