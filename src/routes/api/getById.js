@@ -56,6 +56,7 @@ module.exports = async (req, res) => {
       case '':
         fragment = new Fragment(await Fragment.byId(req.user, id));
         fragData = await fragment.getData();
+        res.setHeader('Content-Type', fragment.type);
         logger.info({
           fragment: fragment, 
           contentType: fragment.type 
