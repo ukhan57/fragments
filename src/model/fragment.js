@@ -126,7 +126,7 @@ class Fragment {
   async setData(data) {
     try {
       if (!(data instanceof Buffer)) {
-        logger.Error('Something went wrong in setData()')
+        logger.Error('Data must be a Buffer')
         throw new Error('Data must be a Buffer');
       }
       this.updated = new Date().toISOString();
