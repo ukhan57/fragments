@@ -42,4 +42,7 @@ router.get('/fragments/:id/info', require('./getByIdInfo'));
 // Define our delete by id route, which will be: DELTE /v1/fragments/:id
 router.delete('/fragments/:id', require('./deleteById'));
 
+// Define our PUT by id route, which will be: PUT /v1/fragments/:id
+router.put('/fragments/:id', rawBody(), require('./putById'));
+
 module.exports = router;
