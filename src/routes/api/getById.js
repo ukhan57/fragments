@@ -70,7 +70,7 @@ module.exports = async (req,res) => {
           let fragData = await fragment.getData();
           logger.debug({fragData}, 'Fragment Data:')
           try {
-            const convertedData = await sharp(Buffer.from(fragData)).toFormat('png').toBuffer();
+            const convertedData = await sharp(Buffer.from(fragData)).toFormat(req.params.ext).toBuffer();
             res.setHeader('Content-Type', `image/${req.params.ext}`)
             res.status(200).send(convertedData); 
           } catch (error) {
