@@ -183,6 +183,8 @@ class Fragment {
       result = ['text/plain', 'text/html'];
     } else if (this.type.includes('application/json')) {
       result = ['application/json', 'text/plain'];
+    } else if (this.type.includes('text/csv')) {
+      result = ['text/csv', 'text/plain', 'text/json'];
     }
     return result;
   }
