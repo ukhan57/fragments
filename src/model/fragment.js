@@ -161,12 +161,30 @@ class Fragment {
    * @returns {Array<string>} list of supported mime types
    */
   get formats() {
-    let formats = [];
+    // let formats = [];
 
-    if (this.type.startsWith('text/plain')) {
-      formats = ['text/plain'];
+    // if (this.type.startsWith('text/plain')) {
+    //   formats = ['text/plain'];
+    // }
+    // return formats;
+    let result = [];
+    if (
+      this.type.includes('image/png') ||
+      this.type.includes('image/jpeg') ||
+      this.type.includes('image/gif') ||
+      this.type.includes('image/webp')
+    ) {
+      result = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+    } else if (this.type.includes('text/plain')) {
+      result = ['text/plain'];
+    } else if (this.type.includes('text/markdown')) {
+      result = ['text/plain', 'text/html', 'text/markdown'];
+    } else if (this.type.includes('text/html')) {
+      result = ['text/plain', 'text/html'];
+    } else if (this.type.includes('application/json')) {
+      result = ['application/json', 'text/plain'];
     }
-    return formats;
+    return result;
   }
 
   /**

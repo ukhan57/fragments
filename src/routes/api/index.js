@@ -34,7 +34,7 @@ const rawBody = () =>
 router.post('/fragments', rawBody(), require('./post'));
 
 // Define our get by id route, which will be: GET /v1/getById
-router.get('/fragments/:id', require('./getById'));
+router.get('/fragments/:id.:ext?', require('./getById'));
 
 // Define our get by id info route, which will be: GET /v1/getByIdInfo
 router.get('/fragments/:id/info', require('./getByIdInfo'));
