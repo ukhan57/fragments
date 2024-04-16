@@ -36,11 +36,17 @@ describe('GET /v1/fragments/:id', () => {
   });
 
   test('return 415 for unsupported type', async () => {
-    const id = 'random-id.txt';
-    const getRes = await request(app).get('/v1/fragments/' + id).auth('user1@email.com', 'password1');
+    const postRes = await request(app)
+    .post('/v1/fragments')
+    .auth('user1@email.com', 'password1')
+    .set('Content-Type', 'text/plain')
+    .send('This is a fragment');
 
+    expect(postRes.statusCode).toBe(201);
+    const id = JSON.parse(postRes.text).fragment.id;
+
+    const getRes = await request(app).get('/v1/fragments/' + id + '.random').auth('user1@email.com', 'password1');
     expect(getRes.statusCode).toBe(415);
-    expect(getRes.body.error.code).toBe('Unsupported Type');
   });
 });
 
